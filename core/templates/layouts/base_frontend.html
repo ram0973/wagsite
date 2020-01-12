@@ -27,6 +27,13 @@
           <!--<img src="/assets/css/img/logo.svg" width="127" height="30" class="d-inline-block align-top" alt="">-->
           {{ domain }}
         </a>
+        <ul class="nav navbar-nav">
+        {% for menu in menu_items %}
+        <li>
+            <a href="{{menu.url}}">{{menu.title}}</a>
+        </li>
+        {% endfor %}
+</ul>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>

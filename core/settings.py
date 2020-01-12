@@ -29,7 +29,7 @@ sentry_sdk.init(
 
 class Common(Configuration):
     """ common settings """
-    WAGTAIL_SITE_NAME = 'Wagtai CMS'
+    WAGTAIL_SITE_NAME = 'Сайт'
 
     AUTH_USER_MODEL = 'accounts.User'
 
@@ -85,9 +85,7 @@ class Common(Configuration):
         'accounts.apps.AccountsConfig',
         'blog.apps.BlogConfig',
         'photos.apps.PhotosConfig',
-        'pages.apps.PagesConfig'
-
-
+        'pages.apps.PagesConfig',
     ]
 
     MIDDLEWARE = [
