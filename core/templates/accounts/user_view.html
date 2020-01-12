@@ -1,0 +1,28 @@
+{% extends "layouts/frontend.html" %}
+{% load i18n %}
+{% block title %}User Profile{% endblock %}
+{% block content %}
+  {% if user %}
+  <section class="jumbotron text-center">
+    <div class="container">
+      <h1 class="jumbotron-heading">{{ _('User Profile') }}</h1>
+      <p class="lead text-muted">Nickname: {{ user.username }}</p>
+      {% if user.first_name %}
+      <p class="lead text-muted">Name: {{ user.first_name }}</p>
+      {% endif %}
+      {% if user.last_name %}
+      <p class="lead text-muted">Last name: {{ user.last_name }}</p>
+      {% endif %}
+      {% if user.last_login %}
+      <p class="lead text-muted">Last login: {{ user.last_login }}</p>
+      {% endif %}
+      <p class="lead text-muted">Date joined: {{ user.date_joined }}</p>
+      {% else %}
+      {{ _('User with such name not found') }}
+      {% endif %}
+      {% if user.is_staff is True %}
+      <p class="lead text-muted">Staff</p>
+      {% endif %}
+    </div>
+  </section>
+{% endblock %}

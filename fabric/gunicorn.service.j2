@@ -1,0 +1,23 @@
+# Gunicorn systemd service unit
+[Unit]
+Description=Django blog {{ app_dir }} gunicorn daemon
+After=network.target
+
+[Service]
+User={{ user_gunicorn }}
+Group=nogroup
+WorkingDirectory={{ app_dir }}
+Environment='DJANGO_CONFIGURATION={{ env|capitalize }}' 'DJANGO_SETTINGS_MODULE={{ django_settings_module }}'
+ExecStart={{ app_dir }}/venv/bin/gunicorn \
+--bind unix:{{ app_dir }}/run/{{ app_name }}.socket \
+--workers 3 \
+--log-level info \
+--access-logfile {{ app_dir }}/run/access_{{ app_name }}.log \
+--error-logfile {{ app_dir }}/run/error_{{ app_name }}.log \
+{{ wsgi_module }}
+ExecReload=/bin/kill -s HUP $MAINPID
+ExecStop=/bin/kill -s TERM $MAINPID
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,13 @@
+{% extends "layouts/base_frontend.html" %}
+{% load i18n %}
+{% block title %}Blog title{% endblock %}
+{% block breadcrumbs %}
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item active">Home</li>
+    </ol>
+  </nav>
+{% endblock %}
+{% block content %}
+{% include "blog/_post_list.html" %}
+{% endblock %}

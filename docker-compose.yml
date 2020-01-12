@@ -1,0 +1,52 @@
+---
+# Explicit is better than implicit
+version: "3.7"
+services:
+  djblog:
+    image: python:3.7.4-slim-buster
+    container_name: djblog
+    restart: unless-stopped
+    working_dir: /src
+    stdin_open: true
+    tty: true
+    command: bash
+    volumes:
+      - type: bind
+        source: .
+        target: /src
+  nginx:
+    image: nginx:1.17.4-alpine
+    container_name: djblog-nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      #- type: volume
+      #  source: .
+      #  target: /src
+      #  volume:
+      #    nocopy: true
+      - type: bind
+        source: ./public
+        target: /public
+  psql:
+    restart: unless-stopped
+    image: postgres:12-alpine
+    container_name: djblog-psql
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data:rw
+      - /var/run/postgresql/:/var/run/postgresql/:rw
+    #environment:
+      #POSTGRES_DB: psqldb
+      #POSTGRES_USER: postgres
+      #POSTGRES_PASSWORD: postgres
+    expose:
+      - "5432"
+
+networks:
+  webnet:
+
+volumes:
+  pgdata:
